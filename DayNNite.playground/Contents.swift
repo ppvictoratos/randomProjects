@@ -1,7 +1,32 @@
 import SwiftUI
 import PlaygroundSupport
 
-//have state be more of global thing 
+//have state be more of global thing
+
+let twoEyes = Path { p in
+    p.move(to: CGPoint(x:0, y:0))
+//    p.addQuadCurve(to: CGPoint(x: 0, y: 50), control: CGPoint(x: 0, y: 0))
+    p.addCurve(to: CGPoint(x:50, y:150),
+               control1: CGPoint(x: 0, y: 100),
+               control2: CGPoint(x: 50, y: 100))
+//    p.addQuadCurve(to: CGPoint(x: 0, y: 50), control: CGPoint(x: 0, y: 0))
+}
+
+twoEyes.boundingRect
+
+let twoEyesScaled: Path = twoEyes.applying(CGAffineTransform(scaleX: 2, y: 2))
+
+twoEyesScaled.boundingRect
+
+struct Eyes: Shape {
+    func path(in rect: CGRect) -> Path {
+        let bounds = twoEyes.boundingRect
+        let scaleX = rect.size.width/bounds.size.width
+        let scaleY = rect.size.width/bounds.size.width
+        
+        return twoEyes.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
+    }
+}
 
 struct Smile: Shape {
     var startAngle: Angle
@@ -22,16 +47,23 @@ struct FaceView: View {
     var body: some View {
         VStack{
             HStack{
-                Circle().foregroundColor(.black).scaleEffect(0.1)
-                Circle().foregroundColor(.black).scaleEffect(0.1)
+                twoEyes
+                twoEyes
             }
-            //TODO: fix the spacing between these two
-            Smile(startAngle: .degrees(180), endAngle: .zero, clockwise: true).stroke(Color.black, lineWidth: 10)
-            .frame(width: 300, height: 300)
-                .rotationEffect(isHappy ? .zero : .degrees(180))
-                .rotation3DEffect(isHappy ? .degrees(180) : .degrees(0), axis: (x: 0, y: 1, z: 0))
-            .scaleEffect(0.5)
-            .animation(.spring())
+            
+            HStack(spacing: 3){
+                Circle().scaleEffect(0.25)
+                Circle().scaleEffect(0.25)
+            }
+            
+            VStack {
+                Smile(startAngle: .degrees(150), endAngle: .degrees(30), clockwise: true).stroke(Color.black, lineWidth: 10)
+                .frame(width: 300, height: 300)
+                    .rotationEffect(isHappy ? .zero : .degrees(180))
+                    .rotation3DEffect(isHappy ? .degrees(180) : .degrees(0), axis: (x: 0, y: 1, z: 0))
+                    .animation(.spring())
+            }
+
         }
     }
 }
@@ -45,10 +77,10 @@ struct CircleView: View {
     var body: some View {
             ZStack{
                 Rectangle()
-                    .foregroundColor(.white)
+                    .foregroundColor(tapped ? .yellow : .green)
                     .onTapGesture {self.tapped.toggle()}
                 
-                Circle().foregroundColor(tapped ? .yellow : .blue)
+                Circle().foregroundColor(tapped ? .purple : .red)
                     .onTapGesture {self.tapped.toggle()}
                 //TODO: either embed or format faceview to be in this circle
                 FaceView(isHappy: tapped)
