@@ -2,31 +2,7 @@ import SwiftUI
 import PlaygroundSupport
 
 //have state be more of global thing
-
-let twoEyes = Path { p in
-    p.move(to: CGPoint(x:0, y:0))
-//    p.addQuadCurve(to: CGPoint(x: 0, y: 50), control: CGPoint(x: 0, y: 0))
-    p.addCurve(to: CGPoint(x:50, y:150),
-               control1: CGPoint(x: 0, y: 100),
-               control2: CGPoint(x: 50, y: 100))
-//    p.addQuadCurve(to: CGPoint(x: 0, y: 50), control: CGPoint(x: 0, y: 0))
-}
-
-twoEyes.boundingRect
-
-let twoEyesScaled: Path = twoEyes.applying(CGAffineTransform(scaleX: 2, y: 2))
-
-twoEyesScaled.boundingRect
-
-struct Eyes: Shape {
-    func path(in rect: CGRect) -> Path {
-        let bounds = twoEyes.boundingRect
-        let scaleX = rect.size.width/bounds.size.width
-        let scaleY = rect.size.width/bounds.size.width
-        
-        return twoEyes.applying(CGAffineTransform(scaleX: scaleX, y: scaleY))
-    }
-}
+//use computed, generic properties to create custom sized shapes such as circles
 
 struct Smile: Shape {
     var startAngle: Angle
@@ -45,26 +21,20 @@ struct FaceView: View {
     var isHappy: Bool
     
     var body: some View {
-        VStack{
-            HStack{
-                twoEyes
-                twoEyes
-            }
-            
-            HStack(spacing: 3){
-                Circle().scaleEffect(0.25)
-                Circle().scaleEffect(0.25)
-            }
-            
             VStack {
-                Smile(startAngle: .degrees(150), endAngle: .degrees(30), clockwise: true).stroke(Color.black, lineWidth: 10)
-                .frame(width: 300, height: 300)
-                    .rotationEffect(isHappy ? .zero : .degrees(180))
-                    .rotation3DEffect(isHappy ? .degrees(180) : .degrees(0), axis: (x: 0, y: 1, z: 0))
-                    .animation(.spring())
+                HStack(spacing: 3){
+                    Circle().scaleEffect(0.25)
+                    Circle().scaleEffect(0.25)
+                }
+                Smile(startAngle: .degrees(150),
+                      endAngle: .degrees(30),
+                      clockwise: true)
+                    .stroke(Color.black, lineWidth: 10)
+                    .frame(width: 300, height: 300)
+//                    .rotationEffect(isHappy ? .zero : .degrees(180))
+                    .rotation3DEffect(isHappy ? .degrees(180) : .degrees(0), axis: (x: 1, y: 0, z: 0))
+                    .transformEffect(isHappy ? CGAffineTransform(translationX: 0, y: 0) : CGAffineTransform(translationX: 0, y: -180))
             }
-
-        }
     }
 }
 
