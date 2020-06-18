@@ -128,6 +128,24 @@ struct Waves: Shape {
 
 PlaygroundPage.current.setLiveView(Waves())
 
+struct ComputedWaves: Shape {
+    //so unlike drawing in OO, this origin starts from the bottom right?
+    
+    func path(in rect: CGRect) -> Path {
+        let startPoint: CGPoint = CGPoint(x: rect.maxX, y: rect.maxY)
+        var midPoint: CGPoint = CGPoint(x: rect.midX, y:rect.midY)
+        
+        var path = Path()
+        path.move(to: startPoint)
+        path.addLine(to: midPoint)
+        midPoint.y += 5
+        path.addLine(to: midPoint)
+        return path
+    }
+}
+
+PlaygroundPage.current.setLiveView(ComputedWaves())
+
 struct PictureView: View {
     @State private var tapped : Bool = false
 
