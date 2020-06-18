@@ -57,7 +57,7 @@ struct FaceView: View {
     
     var body: some View {
             VStack {
-                Hat()
+                Hat().fill(isHappy ? Color.clear : Color.black)
                 
                 HStack(spacing: 3){
                     Circle().scaleEffect(0.25)
@@ -78,16 +78,16 @@ struct FaceView: View {
 PlaygroundPage.current.setLiveView(FaceView(isHappy: true))
 
 
-struct CircleView: View {
+struct PictureView: View {
     @State private var tapped : Bool = false
 
     var body: some View {
             ZStack{
                 Rectangle()
-                    .foregroundColor(tapped ? .yellow : .green)
+                    .foregroundColor(tapped ? .orange : .purple)
                     .onTapGesture {self.tapped.toggle()}
                 
-                Circle().foregroundColor(tapped ? .purple : .red)
+                Circle().foregroundColor(tapped ? .blue : .yellow)
                     .onTapGesture {self.tapped.toggle()}
                 //TODO: either embed or format faceview to be in this circle
                 FaceView(isHappy: tapped)
@@ -95,4 +95,4 @@ struct CircleView: View {
     }
 }
 
-PlaygroundPage.current.setLiveView(CircleView())
+PlaygroundPage.current.setLiveView(PictureView())
