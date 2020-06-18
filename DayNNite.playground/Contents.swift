@@ -15,22 +15,22 @@ struct Hat: Shape{
         path.addLine(to: CGPoint(x: rect.maxX * (1/4), y: rect.maxY * (3/4)))
         
         //B 1/4 maxX, 3/4 maxY + 15
-        path.addLine(to: CGPoint(x: rect.maxX * (1/4), y: rect.maxY * (3/4) + 15))
+        path.addLine(to: CGPoint(x: rect.maxX * (1/4), y: rect.maxY * (3/4) - 15))
         
         //C 3/8 maxX, 3/4 maxY + 15
-        path.addLine(to: CGPoint(x: rect.maxX * (3/8), y: rect.maxY * (3/4) + 15))
+        path.addLine(to: CGPoint(x: rect.maxX * (3/8), y: rect.maxY * (3/4) - 15))
         
         //D 3/8 maxX, 3/4 maxY + 40
-        path.addLine(to: CGPoint(x: rect.maxX * (3/8), y: rect.maxY * (3/4) + 40))
+        path.addLine(to: CGPoint(x: rect.maxX * (3/8), y: rect.maxY * (3/4) - 40))
         
         //E 5/8 maxX, 3/4 maxY + 40
-        path.addLine(to: CGPoint(x: rect.maxX * (5/8), y: rect.maxY * (3/4) + 40))
+        path.addLine(to: CGPoint(x: rect.maxX * (5/8), y: rect.maxY * (3/4) - 40))
         
         //F 5/8 maxX, 3/4 maxY + 15
-        path.addLine(to: CGPoint(x: rect.maxX * (5/8), y: rect.maxY * (3/4) + 15))
+        path.addLine(to: CGPoint(x: rect.maxX * (5/8), y: rect.maxY * (3/4) - 15))
         
         //G 3/4 maxX, 3/4 maxY + 15
-        path.addLine(to: CGPoint(x: rect.maxX * (3/4), y: rect.maxY * (3/4) + 15))
+        path.addLine(to: CGPoint(x: rect.maxX * (3/4), y: rect.maxY * (3/4) - 15))
         
         //H 3/4 maxX, 3/4 maxY
         path.addLine(to: CGPoint(x: rect.maxX * (3/4), y: rect.maxY * (3/4)))
