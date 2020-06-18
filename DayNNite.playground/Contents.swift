@@ -8,6 +8,8 @@ struct Hat: Shape{
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
+        //TODO:- turn hat upside down
+        
         //A 1/4 maxX, 3/4 maxY
         path.move(to: CGPoint(x: rect.maxX * (1/4), y: rect.maxY * (3/4)))
         path.addLine(to: CGPoint(x: rect.maxX * (1/4), y: rect.maxY * (3/4)))
@@ -77,6 +79,7 @@ struct FaceView: View {
 
 PlaygroundPage.current.setLiveView(FaceView(isHappy: true))
 
+//TODO:- Customize background to utilize some funky shapes
 
 struct PictureView: View {
     @State private var tapped : Bool = false
