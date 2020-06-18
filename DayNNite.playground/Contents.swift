@@ -1,14 +1,11 @@
 import SwiftUI
 import PlaygroundSupport
 
-//have state be more of global thing
-//use computed, generic properties to create custom sized shapes such as circles
-
+//is there any way to calculate this faster? maybe using computed variables for the CGPoint
+//locations?
 struct Hat: Shape{
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        
-        //TODO:- turn hat upside down
         
         //A 1/4 maxX, 3/4 maxY
         path.move(to: CGPoint(x: rect.maxX * (1/4), y: rect.maxY * (3/4) + 35))
@@ -81,6 +78,56 @@ PlaygroundPage.current.setLiveView(FaceView(isHappy: true))
 
 //TODO:- Customize background to utilize some funky shapes
 
+//Background should keep its primary color (purple or orange) but should consist of rows
+//of a sine wave from top to bottom, light to dark tint
+struct Waves: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: 0, y: rect.maxY * (1/4)))
+        path.addCurve(to: CGPoint(x: rect.maxX / 8 , y: rect.maxY * (1/4)),
+                      control1: CGPoint(x: rect.maxX / 8 + 10, y: rect.maxY * (1/4) - 20),
+                      control2: CGPoint(x: rect.maxX / 8 + 10, y: rect.maxY * (1/4)))
+        
+        path.move(to: CGPoint(x: rect.maxX / 8, y: rect.maxY * (1/4)))
+        path.addCurve(to: CGPoint(x: rect.maxX * (1/4) , y: rect.maxY * (1/4)),
+                      control1: CGPoint(x: rect.maxX * (1/4) + 10, y: rect.maxY * (1/4) - 20),
+                      control2: CGPoint(x: rect.maxX * (1/4) + 10, y: rect.maxY * (1/4)))
+        
+        path.move(to: CGPoint(x: rect.maxX * (1/4), y: rect.maxY * (1/4)))
+        path.addCurve(to: CGPoint(x: rect.maxX * (3/8) , y: rect.maxY * (1/4)),
+                      control1: CGPoint(x: rect.maxX * (3/8) + 10, y: rect.maxY * (1/4) - 20),
+                      control2: CGPoint(x: rect.maxX * (3/8) + 10, y: rect.maxY * (1/4)))
+        
+        path.move(to: CGPoint(x: rect.maxX * (3/8), y: rect.maxY * (1/4)))
+        path.addCurve(to: CGPoint(x: rect.maxX * (1/2) , y: rect.maxY * (1/4)),
+                      control1: CGPoint(x: rect.maxX * (1/2) + 10, y: rect.maxY * (1/4) - 20),
+                      control2: CGPoint(x: rect.maxX * (1/2) + 10, y: rect.maxY * (1/4)))
+        
+        path.move(to: CGPoint(x: rect.maxX * (1/2), y: rect.maxY * (1/4)))
+        path.addCurve(to: CGPoint(x: rect.maxX * (5/8) , y: rect.maxY * (1/4)),
+                      control1: CGPoint(x: rect.maxX * (5/8) + 10, y: rect.maxY * (1/4) - 20),
+                      control2: CGPoint(x: rect.maxX * (5/8) + 10, y: rect.maxY * (1/4)))
+        
+        path.move(to: CGPoint(x: rect.maxX * (5/8), y: rect.maxY * (1/4)))
+        path.addCurve(to: CGPoint(x: rect.maxX * (3/4) , y: rect.maxY * (1/4)),
+                      control1: CGPoint(x: rect.maxX * (3/4) + 10, y: rect.maxY * (1/4) - 20),
+                      control2: CGPoint(x: rect.maxX * (3/4) + 10, y: rect.maxY * (1/4)))
+
+        path.move(to: CGPoint(x: rect.maxX * (3/4), y: rect.maxY * (1/4)))
+        path.addCurve(to: CGPoint(x: rect.maxX * (7/8) , y: rect.maxY * (1/4)),
+                      control1: CGPoint(x: rect.maxX * (7/8) + 10, y: rect.maxY * (1/4) - 20),
+                      control2: CGPoint(x: rect.maxX * (7/8) + 10, y: rect.maxY * (1/4)))
+        
+        path.move(to: CGPoint(x: rect.maxX * (7/8), y: rect.maxY * (1/4)))
+        path.addCurve(to: CGPoint(x: rect.maxX, y: rect.maxY * (1/4)),
+                      control1: CGPoint(x: rect.maxX, y: rect.maxY * (1/4) - 20),
+                      control2: CGPoint(x: rect.maxX, y: rect.maxY * (1/4)))
+        return path
+    }
+}
+
+PlaygroundPage.current.setLiveView(Waves())
+
 struct PictureView: View {
     @State private var tapped : Bool = false
 
@@ -89,10 +136,9 @@ struct PictureView: View {
                 Rectangle()
                     .foregroundColor(tapped ? .orange : .purple)
                     .onTapGesture {self.tapped.toggle()}
-                
+                Waves()
                 Circle().foregroundColor(tapped ? .blue : .yellow)
                     .onTapGesture {self.tapped.toggle()}
-                //TODO: either embed or format faceview to be in this circle
                 FaceView(isHappy: tapped)
             }
     }
