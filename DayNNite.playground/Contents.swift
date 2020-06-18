@@ -57,6 +57,8 @@ struct FaceView: View {
     
     var body: some View {
             VStack {
+                Hat()
+                
                 HStack(spacing: 3){
                     Circle().scaleEffect(0.25)
                     Circle().scaleEffect(0.25)
