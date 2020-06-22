@@ -8,15 +8,31 @@ import PlaygroundSupport
 
 struct House: View {
     var body: some View {
-        Path { path in
-            path.move(to: CGPoint(x: 20, y: 0))
-            path.addLine(to: CGPoint(x: 20, y: 300))
-            path.addLine(to: CGPoint(x: 300, y: 300))
-            path.addLine(to: CGPoint(x: 300, y: 0))
-        }.fill(
-            LinearGradient(gradient: .init(colors: [Color.blue, Color.red]),
-                           startPoint: .init(x: 0.5, y: 0),
-                           endPoint: .init(x: 0.5, y: 0.5)))
+        ZStack{
+            ZStack{
+                Path { path in
+                    path.move(to: CGPoint(x: 70, y: 420))
+                    path.addLine(to: CGPoint(x: 70, y: 600))
+                    path.addLine(to: CGPoint(x: 300, y: 600))
+                    path.addLine(to: CGPoint(x: 300, y: 420))
+                }.fill(Color.blue)
+
+                Path { path in
+                    path.move(to: CGPoint(x: 55, y: 420))
+                    path.addLine(to: CGPoint(x: 175, y: 300))
+                    path.addLine(to: CGPoint(x: 315, y: 420))
+                }.fill(Color.red)
+            }
+            
+            ZStack {
+                Path { path in
+                    path.move(to: CGPoint(x: 168, y: 600))
+                    path.addLine(to: CGPoint(x: 168, y: 530))
+                    path.addLine(to: CGPoint(x: 206, y: 530))
+                    path.addLine(to: CGPoint(x: 206, y: 600))
+                }.fill(Color.black)
+            }
+        }
     }
 }
 
