@@ -1,9 +1,28 @@
 import SwiftUI
 import PlaygroundSupport
 
+//what are the add-on's you get with using a shape type rather than a view?
+
 //is there any way to calculate this faster? maybe using computed variables for the CGPoint
 //locations?
-struct Hat: Shape{
+
+struct House: View {
+    var body: some View {
+        Path { path in
+            path.move(to: CGPoint(x: 20, y: 0))
+            path.addLine(to: CGPoint(x: 20, y: 300))
+            path.addLine(to: CGPoint(x: 300, y: 300))
+            path.addLine(to: CGPoint(x: 300, y: 0))
+        }.fill(
+            LinearGradient(gradient: .init(colors: [Color.blue, Color.red]),
+                           startPoint: .init(x: 0.5, y: 0),
+                           endPoint: .init(x: 0.5, y: 0.5)))
+    }
+}
+
+PlaygroundPage.current.setLiveView(House())
+
+struct Hat: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
@@ -128,6 +147,14 @@ struct Waves: Shape {
 
 PlaygroundPage.current.setLiveView(Waves())
 
+struct ViewWaves: View{
+    var body: some View {
+        Path { path in
+            
+        }
+    }
+}
+
 struct ComputedWaves: Shape {
     //so unlike drawing in OO, this origin starts from the bottom right?
     
@@ -138,6 +165,9 @@ struct ComputedWaves: Shape {
         var path = Path()
         path.move(to: startPoint)
         path.addLine(to: midPoint)
+        midPoint.y += 5
+        path.addLine(to: midPoint)
+        path.foregroundColor(.red)
         midPoint.y += 5
         path.addLine(to: midPoint)
         return path
