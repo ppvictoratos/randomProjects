@@ -120,6 +120,14 @@ struct FaceView: View {
 
 PlaygroundPage.current.setLiveView(FaceView(isHappy: true))
 
+struct StickBody: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: 0, y: 0))
+        return path
+    }
+}
+
 //TODO:- Customize background to utilize some funky shapes
 
 //Background should keep its primary color (purple or orange) but should consist of rows
@@ -209,7 +217,6 @@ struct PictureView: View {
                 Rectangle()
                     .foregroundColor(tapped ? .orange : .purple)
                     .onTapGesture {self.tapped.toggle()}
-                Waves()
                 Circle().foregroundColor(tapped ? .blue : .yellow)
                     .onTapGesture {self.tapped.toggle()}
                 FaceView(isHappy: tapped)
