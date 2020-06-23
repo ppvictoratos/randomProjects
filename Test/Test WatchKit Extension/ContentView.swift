@@ -1,18 +1,16 @@
 //
 //  ContentView.swift
-//  BigSurTests
+//  Test WatchKit Extension
 //
 //  Created by Peter Victoratos on 6/23/20.
 //
 
 import SwiftUI
+import ClockKit
 
 struct ContentView: View {
     var body: some View {
-        HStack {
-            Text("Hello, world!").padding()
-            Text("Hello").padding()
-        }
+        Text("hello").padding()
     }
 }
 
