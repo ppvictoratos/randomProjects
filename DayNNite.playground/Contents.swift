@@ -10,27 +10,36 @@ struct House: View {
     var body: some View {
         ZStack{
             ZStack{
+                //house body
                 Path { path in
                     path.move(to: CGPoint(x: 70, y: 420))
                     path.addLine(to: CGPoint(x: 70, y: 600))
                     path.addLine(to: CGPoint(x: 300, y: 600))
                     path.addLine(to: CGPoint(x: 300, y: 420))
                 }.fill(Color.blue)
-
-                Path { path in
-                    path.move(to: CGPoint(x: 55, y: 420))
-                    path.addLine(to: CGPoint(x: 175, y: 300))
-                    path.addLine(to: CGPoint(x: 315, y: 420))
-                }.fill(Color.red)
-            }
-            
-            ZStack {
+                //door
                 Path { path in
                     path.move(to: CGPoint(x: 168, y: 600))
                     path.addLine(to: CGPoint(x: 168, y: 530))
                     path.addLine(to: CGPoint(x: 206, y: 530))
                     path.addLine(to: CGPoint(x: 206, y: 600))
                 }.fill(Color.black)
+            }
+            
+            ZStack {
+                //chimney
+                Path { path in
+                    path.move(to: CGPoint(x: 250, y: 420))
+                    path.addLine(to: CGPoint(x: 250, y: 330))
+                    path.addLine(to: CGPoint(x: 280, y: 330))
+                    path.addLine(to: CGPoint(x: 280, y: 420))
+                }.fill(Color.black)
+                //roof
+                Path { path in
+                    path.move(to: CGPoint(x: 55, y: 420))
+                    path.addLine(to: CGPoint(x: 175, y: 300))
+                    path.addLine(to: CGPoint(x: 315, y: 420))
+                }.fill(Color.red)
             }
         }
     }
