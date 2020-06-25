@@ -47,6 +47,35 @@ struct House: View {
 
 PlaygroundPage.current.setLiveView(House())
 
+struct ScrollThing: View{
+    var body: some View {
+        ScrollView {
+            ScrollViewReader { scrollProxy in
+                VStack {
+                    Text("Hello World").id("Hello")
+                    Button("Goodbye", action: {
+                        withAnimation {
+                            scrollProxy.scrollTo("Goodbye", anchor: .top)
+                        }
+                    }
+                    )
+                    
+                    Spacer().frame(height:400.0)
+                    
+                    Text("Goodbye").id("Goodbye")
+                    Button("Hello", action: {
+                        withAnimation {
+                            scrollProxy.scrollTo("Hello", anchor: .bottom)
+                        }
+                    })
+                }
+            }
+        }
+    }
+}
+
+PlaygroundPage.current.setLiveView(ScrollThing())
+
 struct Hat: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
