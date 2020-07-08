@@ -251,5 +251,5 @@ struct PictureView: View {
             }
     }
 }
-
+    
 PlaygroundPage.current.setLiveView(PictureView())
