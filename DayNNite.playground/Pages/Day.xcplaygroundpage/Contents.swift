@@ -17,10 +17,14 @@ struct RootView: View {
                 .stroke(Color.red)
                 .animation(Animation.linear(duration: 1).repeatForever())
                 .onAppear { self.coordinate = 100 }
+            Watermelon()
+                .stroke(Color.green)
+            PolygonShape(sides: 3).stroke(Color.purple, lineWidth: 2)
         }.frame(width: 300, height: 300, alignment: .center)
 
     }
 }
+
 
 struct Line1: Shape {
     let coordinate: CGFloat
@@ -49,24 +53,47 @@ struct Line1Animatable: Shape {
     }
 }
 
-struct Line2: Shape {
-    var x: CGFloat
-    var y: CGFloat
-
-    var animatableData: AnimatablePair<CGFloat, CGFloat> {
-        get { AnimatablePair(x, y) }
-        set {
-            x = newValue.first
-            y = newValue.second
-        }
-    }
-
+struct Watermelon: Shape {
     func path(in rect: CGRect) -> Path {
         Path { path in
             path.move(to: .zero)
-            path.addLine(to: CGPoint(x: x, y: y))
+            path.addEllipse(in: rect)
         }
+    }
+    
+}
+
+struct PolygonShape: Shape {
+    var sides: Int
+    
+    func path(in rect: CGRect) -> Path {
+        // hypotenuse
+        let h = Double(min(rect.size.width, rect.size.height)) / 2.0
+        
+        // center
+        let c = CGPoint(x: rect.size.width / 2.0, y: rect.size.height / 2.0)
+        
+        var path = Path()
+                
+        for i in 0..<sides {
+            let angle = (Double(i) * (360.0 / Double(sides))) * Double.pi / 180
+
+            // Calculate vertex position
+            let pt = CGPoint(x: c.x + CGFloat(cos(angle) * h), y: c.y + CGFloat(sin(angle) * h))
+            
+            if i == 0 {
+                path.move(to: pt) // move to first vertex
+            } else {
+                path.addLine(to: pt) // draw line to next vertex
+            }
+        }
+        
+        path.closeSubpath()
+        
+        return path
     }
 }
 
+
 PlaygroundPage.current.setLiveView(RootView())
+
