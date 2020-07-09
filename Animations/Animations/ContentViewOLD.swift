@@ -10,13 +10,13 @@ import SwiftUI
 
 //ahhh! i forget how to make the preview simulator react to touch..
 
-struct ContentView: View {
+struct ContentViewOLD: View {
     var body: some View {
         Text("Hello, World!")
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ContentViewOLD_Previews: PreviewProvider {
     static var previews: some View {
         RootView()
     }
