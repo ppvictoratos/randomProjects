@@ -53,6 +53,24 @@ struct Animations2: View {
 
 //But the formulas I am finding are for the volume & surface area. I'm going to see what the author of the Advanced stuff had.
 
+//make a shape that have a path that follows the torus formula:
+// 4π2Rr (r = tube radius, R = radius from center torus -> center tube
+
+//    struct Torus: Shape {
+//        func path(in rect: CGRect) -> Path {
+//            let path = Path()
+//            //have to define a relationship between R and r
+//            //path = 4 * Int(pow(Double.pi, 2)) * R * r
+//            //but this doesn't make sense ^
+//            //My path has to navigate over this equation
+//
+//            return path
+//        }
+//    }
+
+//not doing 3d yet. going to do a group of spinning triangles for now
+//they will be in a circle, kinda
+
 struct TorusView: View {
     @State var buttonScale: Int
     

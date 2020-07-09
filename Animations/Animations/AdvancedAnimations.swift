@@ -1468,24 +1468,6 @@ struct Example15: View {
         }.navigationBarTitle("Example 15")
     }
     
-    //make a shape that have a path that follows the torus formula:
-    // 4π2Rr (r = tube radius, R = radius from center torus -> center tube
-    
-//    struct Torus: Shape {
-//        func path(in rect: CGRect) -> Path {
-//            let path = Path()
-//            //have to define a relationship between R and r
-//            //path = 4 * Int(pow(Double.pi, 2)) * R * r
-//            //but this doesn't make sense ^
-//            //My path has to navigate over this equation
-//
-//            return path
-//        }
-//    }
-    
-    //not doing 3d yet. going to do a group of spinning triangles for now
-    //they will be in a circle, kinda
-    
     struct TriangleView: View {
         @State private var animate = false
         @State private var colorNum = 4
@@ -1493,7 +1475,7 @@ struct Example15: View {
         let colors: [Color] = [.green, .yellow, .orange, .red, .purple, .blue]
         
         var body: some View {
-            TriangleColor(rotate: 2.0, scale: 1.0, num: colorNum)
+            TriangleColor(rotate: 2.0, scale: 4.0, num: colorNum)
         }
     }
     
@@ -1512,7 +1494,7 @@ struct Example15: View {
             //idk what this is for.. going to ignore for now
             return GeometryReader { proxy in
                 TriangleShape()
-                    .scaleEffect(CGFloat(scale), anchor: .center)
+                    .scaleEffect(animate ? CGFloat(scale) : CGFloat(rotate), anchor: .center)
                     .rotationEffect(/*@START_MENU_TOKEN@*/.zero/*@END_MENU_TOKEN@*/, anchor: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 
             //I want one triangle to spin a random direction
